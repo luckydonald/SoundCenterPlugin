@@ -48,7 +48,7 @@ public class Messages {
 			{player}	player name
 			{version}	bukkit version
 	 */
-	public static final String INFO_START_AUDIOCLIENT = "§2To use ingame-music (location aware), visit §9§nhttp://dev.bukkit.org/bukkit-plugins/custommusic/§r§2 and get the SoundCenter client.s\nYour §aMinecraft name§2 is §a§l{player}§2, the §aServer IP§2 is §a§l{scip}§2 and the §aSoundCenter Port§2 is §a§l{scport}§2.";
+	public static final String INFO_START_AUDIOCLIENT = "§2To use ingame-music (location aware), visit §9§nhttp://dev.bukkit.org/bukkit-plugins/custommusic/§r§2 and get the SoundCenter client.\nYour §aMinecraft name§2 is §a§l{player}§2, the §aServer IP§2 is §a§l{scip}§2 and the §aSoundCenter Port§2 is §a§l{scport}§2.";
 	//prefix: "§f[§aSound§9Center§f] "
 	//log-in: "Visit §9§n{url}?n={player}&i={mcip} §r§ato use ingame-music and voice chat."
 
@@ -77,9 +77,9 @@ public class Messages {
 	public static final String INFO_PLAYING_SONG_GLOBAL = " for everyone on the server.";
 	
 	public static final String INFO_HELP_TITLE = prefix + "Available commands: ( < > = required [ ] = optional )";
-	public static final String INFO_HELP_PAGE_PT1 = "Use " + ChatColor.GREEN + " /sc help ";
+	public static final String INFO_HELP_PAGE_PT1 = "Use " + ChatColor.GREEN + " /sc ";
 	public static final String INFO_HELP_PAGE_PT2 =  ChatColor.WHITE + " to show more commands.";
-	public static final String[] INFO_HELP_COMMANDS = new String[]{"- /sc init","- /sc status", "- /sc users",
+	public static final String[] INFO_HELP_COMMANDS = new String[]{"- /sc", "- /sc help", "- /sc init","- /sc status", "- /sc users",
 											"- /sc toggle <music|voice>", "- /sc mute <name>", "- /sc unmute <name>",
 											"- /sc volume <1-100>",	"- /sc play <songtitle> [world <name>|global]",
 											"- /sc stop <songtitle> [world <name>|global]", "- /sc set <box> [range]",
