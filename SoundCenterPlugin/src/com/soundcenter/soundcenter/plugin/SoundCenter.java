@@ -66,7 +66,7 @@ public class SoundCenter extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new SCPlayerListener(), this);
 
 		// load data
-		dataFile = new File(this.getDataFolder().getPath() + File.separator + "SoundCenter" + File.separator + "data.scdb");
+		dataFile = new File(this.getDataFolder().getPath() + File.separator + "data.scdb");
 		if (dataFile.exists()) {
 			try {
 				database = (Database) FileOperation.loadObject(dataFile);
@@ -115,7 +115,8 @@ public class SoundCenter extends JavaPlugin {
 				logger.w("Error while loading data.", e);
 			}
 		} else {
-			database = new Database();	
+			database = new Database();
+			logger.w("Created Database!", null);
 		}
 
 		// start server
