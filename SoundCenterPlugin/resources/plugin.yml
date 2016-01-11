@@ -1,0 +1,110 @@
+name: SoundCenter
+main: com.soundcenter.soundcenter.plugin.SoundCenter
+version: 0.302
+commands:
+  sc:
+    aliases: soundcenter
+    description: Prefix for all SoundCenter commands.
+    usage: /sc help [page]
+permissions:
+  sc.*:
+    description: Gives access to all SoundCenter commands
+    children:
+      sc.init: true
+      sc.add.song: true
+      sc.set.area: true
+      sc.set.box: true
+      sc.set.wgregion: true
+      sc.set.wgregion.nomember: true
+      sc.set.biome: true
+      sc.set.world: true
+      sc.set.overlap: true
+      sc.play.world: true
+      sc.play.global: true
+      sc.speak: true
+      sc.speak.global: true
+      sc.others.edit: true
+      sc.others.delete: true
+      sc.nolimits: true
+  sc.add.*:
+    description: Allows you to add songs (songs can also be radio streams)
+    children:
+      sc.add.song: true
+  sc.set.*:
+    description: Allows you to set everything (boxes, areas, WorldGuard regions, biomes, worlds) (also overlapping)
+    children:
+      sc.set.area: true
+      sc.set.box: true
+      sc.set.wgregion: true
+      sc.set.wgregion.nomember: true
+      sc.set.biome: true
+      sc.set.world: true
+      sc.set.overlap: true
+  sc.set.wgregion.*:
+    description: Allows you to set WorldGuard regions (also if you are not a member of the region)
+    children:
+      sc.set.wgregion: true
+      sc.set.wgregion.nomember: true
+  sc.others.*:
+    description: Allows you to list/ edit/ delete other player's boxes, areas and songs
+    children:
+      sc.others.edit: true
+      sc.others.delete: true
+  sc.speak.*:
+    description: Allows you to speak locally and globally
+    children:
+      sc.speak: true
+      sc.speak.global: true
+  sc.play.*:
+    description: Allows you to play a song in a world or globally
+    children:
+      sc.play.world: true
+      sc.play.global: true
+  sc.init:
+    description: Allows you to use the audio client
+    default: true
+  sc.add.song:
+    description: Allows you to add songs (songs can also be radio streams)
+    default: op
+  sc.set.box:
+    description: Allows you to set boxes
+    default: op
+  sc.set.area:
+    description: Allows you to set areas
+    default: op
+  sc.set.wgregion:
+    description: Allows you to set WorldGuard regions as a SoundCenter station
+    default: op
+  sc.set.wgregion.nomember:
+    description: Allows you to set WorldGuard regions as a SoundCenter station, even if you are not a member of the region
+    default: op
+  sc.set.biome:
+    description: Allows you to manage biome-specific music
+    default: op
+  sc.set.world:
+    description: Allows you to manage world-specific music
+    default: op
+  sc.set.overlap:
+    description: Allows you to set overlapping areas/ boxes
+    default: op
+  sc.play.world:
+    description: Allows you to play a song for every player in a world
+    default: op
+  sc.play.global:
+    description: Allows you to play a song for every player
+    default: op
+  sc.speak: 
+    description: Allows you to use voice chat
+    default: op
+  sc.speak.global: 
+    description: Allows you to use voice chat globally
+    default: op
+  sc.others.edit:
+    description: Allows you to edit other player's boxes/ areas etc.
+    default: op
+  sc.others.delete:
+    description: Allows you to delete other player's boxes/ areas etc.
+    default: op
+  sc.nolimits:
+    description: Unlimited number of boxes/ areas etc., files, file size, ...
+    default: op

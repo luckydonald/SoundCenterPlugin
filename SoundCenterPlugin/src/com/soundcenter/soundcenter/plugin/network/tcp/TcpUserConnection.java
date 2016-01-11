@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.soundcenter.soundcenter.plugin.SoundCenter;
 import org.bukkit.entity.Player;
 
 
@@ -14,7 +15,6 @@ import org.bukkit.entity.Player;
 
 
 import com.soundcenter.soundcenter.lib.tcp.TcpPacket;
-import com.soundcenter.soundcenter.plugin.SoundCenter;
 import com.soundcenter.soundcenter.plugin.data.ServerUser;
 import com.soundcenter.soundcenter.plugin.messages.Messages;
 import com.soundcenter.soundcenter.plugin.network.tcp.protocol.MainProtocol;
@@ -46,7 +46,7 @@ public class TcpUserConnection implements Runnable {
 				}
 			} catch (IOException e) {
 				if (!SoundCenter.tcpServer.exit && !user.getDisconnect() && !socket.isClosed()) {
-					SoundCenter.logger.i("Lost connection to user " + user.getName() 
+					SoundCenter.logger.i("Lost connection to user " + user.getName()
 							+ " on " + user.getIp() + ".", e);
 				}
 				user.disconnect();
@@ -54,12 +54,12 @@ public class TcpUserConnection implements Runnable {
 				SoundCenter.logger.i("Error while restoring object from packet:", e);
 				user.disconnect();
 			} catch (ClassNotFoundException e) {
-				SoundCenter.logger.i("Error while reading packet from user " + user.getName() + " on " 
+				SoundCenter.logger.i("Error while reading packet from user " + user.getName() + " on "
 			+ user.getIp() + ".", e);
 				user.disconnect();
 			}
 		}
-		SoundCenter.logger.i("Closed TCP-connection to user " + user.getName() 
+		SoundCenter.logger.i("Closed TCP-connection to user " + user.getName()
 				+ " on " + user.getIp() + ". \nReason: " + user.getQuitReason(), null);
 		Player player = user.getPlayer();
 		if (player != null) {

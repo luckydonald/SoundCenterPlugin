@@ -1,5 +1,6 @@
 package com.soundcenter.soundcenter.plugin.network.tcp.protocol;
 
+import com.soundcenter.soundcenter.plugin.SoundCenter;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -8,7 +9,6 @@ import com.soundcenter.soundcenter.lib.data.Song;
 import com.soundcenter.soundcenter.lib.tcp.TcpOpcodes;
 import com.soundcenter.soundcenter.lib.tcp.TcpPacket;
 import com.soundcenter.soundcenter.plugin.PlaybackManager;
-import com.soundcenter.soundcenter.plugin.SoundCenter;
 import com.soundcenter.soundcenter.plugin.data.ServerUser;
 import com.soundcenter.soundcenter.plugin.messages.Messages;
 

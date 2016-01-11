@@ -36,7 +36,7 @@ public class TcpSender implements Runnable {
 					try {
 						if (oos == null) {
 							/* send packet to all users */
-							for (ServerUser user: SoundCenter.userList.connectedUsers) {										
+							for (ServerUser user: SoundCenter.userList.connectedUsers) {
 								oos = user.getOos();
 								if (oos != null) {
 									oos.writeObject(packet);
@@ -55,7 +55,7 @@ public class TcpSender implements Runnable {
 		
 		/* tell users to disconnect and close the connection */
 		packet = new TcpPacket(TcpOpcodes.CL_CON_INFO_DISCONNECT, null, null);
-		for (ServerUser user: SoundCenter.userList.connectedUsers) {										
+		for (ServerUser user: SoundCenter.userList.connectedUsers) {
 			oos = user.getOos();
 			try {										
 				oos.writeObject(packet);

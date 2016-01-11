@@ -1,9 +1,9 @@
 package com.soundcenter.soundcenter.plugin;
 
-import org.bukkit.World;
 import com.soundcenter.soundcenter.lib.data.Song;
 import com.soundcenter.soundcenter.lib.tcp.TcpOpcodes;
 import com.soundcenter.soundcenter.plugin.data.ServerUser;
+import org.bukkit.World;
 
 public class PlaybackManager {
 
@@ -30,5 +30,4 @@ public class PlaybackManager {
 	public static void stopGlobalSong(Song song) {
 		SoundCenter.tcpServer.send(TcpOpcodes.CL_CMD_STOP_SONG, song, null, null);
 	}
-	
 }

@@ -3,6 +3,7 @@ package com.soundcenter.soundcenter.plugin.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.soundcenter.soundcenter.plugin.SoundCenter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -12,7 +13,6 @@ import com.soundcenter.soundcenter.lib.data.Area;
 import com.soundcenter.soundcenter.lib.data.Box;
 import com.soundcenter.soundcenter.lib.data.SCLocation;
 import com.soundcenter.soundcenter.lib.data.Station;
-import com.soundcenter.soundcenter.plugin.SoundCenter;
 
 public class IntersectionDetection {
 

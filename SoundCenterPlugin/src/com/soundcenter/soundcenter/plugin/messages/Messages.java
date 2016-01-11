@@ -1,22 +1,58 @@
 package com.soundcenter.soundcenter.plugin.messages;
 
+import com.soundcenter.soundcenter.plugin.SoundCenter;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Messages {
-	
-	//colors	
+	private final JavaPlugin plugin;
+
+	//colors
 	public static final ChatColor RED = ChatColor.RED;
 	public static final ChatColor GREEN = ChatColor.GREEN;
 	public static final ChatColor BLUE = ChatColor.BLUE;
 	public static final ChatColor WHITE = ChatColor.WHITE;
-	
+
+
+	public static Map<String, String> Strings = new HashMap<String, String>();
+
 	public static final String prefix = "[" + GREEN + "Sound" 
 										+ BLUE + "Center" + WHITE + "] ";
-	
-	
-	public static final String INFO_START_AUDIOCLIENT_PT1 = prefix + GREEN 
-													+ "Vist " + BLUE + ChatColor.UNDERLINE ;
-	public static final String INFO_START_AUDIOCLIENT_PT2 =  "" + ChatColor.RESET + GREEN + " to use ingame-music and voice chat.";
+
+	/*
+	Minecraft Server
+			{mcurl}		minecraft host (or ip)
+			{mcip}		minecraft ip
+			{mcport}	minecraft port
+			{mcversion}	minecraft version (not bukkit version?)
+
+			{url}		alias to {mcurl}
+			{ip}		alias to {mcip}
+
+		SoundCenter Server
+			{scurl}		sound center url (actually alias for {scip})
+			{scip}		sound center ip (will be same as {mcip} if nothing is in SoundCenter config)
+			{scport}	sound center port
+			{scversion}	sound center version
+
+			{port} 		alias to {scport}
+
+		Game
+			{player}	player name
+			{version}	bukkit version
+	 */
+	public static final String INFO_START_AUDIOCLIENT = "§2To use ingame-music (location aware), visit §9§nhttp://dev.bukkit.org/bukkit-plugins/custommusic/§r§2 and get the SoundCenter client.s\nYour §aMinecraft name§2 is §a§l{player}§2, the §aServer IP§2 is §a§l{scip}§2 and the §aSoundCenter Port§2 is §a§l{scport}§2.";
+	//prefix: "§f[§aSound§9Center§f] "
+	//log-in: "Visit §9§n{url}?n={player}&i={mcip} §r§ato use ingame-music and voice chat."
+
+
 	public static final String INFO_INIT_SUCCESS = prefix + GREEN + "AudioClient initialized!";
 	public static final String INFO_USERS = prefix + GREEN + "Players using SoundCenter: ";
 	public static final String INFO_USER_MUTED = prefix + GREEN + "Muted user: ";
@@ -121,5 +157,57 @@ public class Messages {
 													+ "IP-Verification failed! Cannot use audioclient.";
 	public static final String ERR_NOT_ACCEPTED = prefix + "Oh noes! Something went wrong with initialization! "
 													+ "Please try again.";
-	
+	private final File locateFile;
+	private final YamlConfiguration locale;
+
+	public Messages(SoundCenter plugin) {
+		this.plugin = plugin;
+		this.locateFile = new File(plugin.getDataFolder(), "locales.yml");
+		this.locale = YamlConfiguration.loadConfiguration(locateFile);
+		this.locale.addDefault("prefix", prefix);
+		try {
+			this.locale.save(this.locateFile);
+		} catch (IOException e) {
+			SoundCenter.logger.i("Failed saving default strings", e);
+		}
+		this.loadLocales();
+	}
+
+	private static Messages instance = null;
+
+	public static boolean hasInstance() {
+		return instance != null;
+	}
+
+	public static Messages getInstance(SoundCenter plugin) {
+		if (!hasInstance()) {
+			instance = new Messages(plugin);
+		}
+		return instance;
+	}
+	public void loadLocales() {
+		Strings.clear();
+
+		FileConfiguration locales = YamlConfiguration.loadConfiguration(locateFile);
+
+		/*if (locales != null) {
+			String value;
+			for (String key : locales.getKeys(false)) {
+				value = locales.getString(key);
+				Strings.put(key, ChatColor.translateAlternateColorCodes('&', value));
+			}
+		}*/
+
+		locales = YamlConfiguration.loadConfiguration(locateFile);
+
+		String value;
+		for (String key : locales.getKeys(false)) {
+			if (!Strings.containsKey(key)){
+				value = locales.getString(key);
+				Strings.put(key, ChatColor.translateAlternateColorCodes('&', value));
+			}
+		}
+	}
+
+
 }

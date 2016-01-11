@@ -18,7 +18,7 @@ public class MainProtocol {
 			return HandshakeProtocol.processPacket(cmd, receivedPacket, user);
 			
 		} else if (!user.isInitialized()) {			/* audioclient isn't intialized */
-			SoundCenter.tcpServer.send(TcpOpcodes.CL_ERR_NOT_INITIALIZED, null, null, user);	
+			SoundCenter.tcpServer.send(TcpOpcodes.CL_ERR_NOT_INITIALIZED, null, null, user);
 			return true;
 			
 		} else {		/* user is already accepted and initialized */

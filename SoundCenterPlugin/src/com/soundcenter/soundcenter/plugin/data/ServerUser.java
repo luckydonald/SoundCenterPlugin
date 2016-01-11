@@ -12,11 +12,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.soundcenter.soundcenter.plugin.SoundCenter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.soundcenter.soundcenter.lib.tcp.TcpOpcodes;
-import com.soundcenter.soundcenter.plugin.SoundCenter;
 
 public class ServerUser {
 

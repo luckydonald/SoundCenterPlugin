@@ -2,6 +2,10 @@ package com.soundcenter.soundcenter.plugin;
 
 import java.util.Map.Entry;
 
+import com.soundcenter.soundcenter.plugin.network.tcp.ConnectionManager;
+//package com.soundcenter.soundcenter.plugin.network.tcp;
+
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,7 +14,6 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.soundcenter.soundcenter.plugin.data.ServerUser;
-import com.soundcenter.soundcenter.plugin.network.tcp.ConnectionManager;
 
 public class SCPlayerListener implements Listener{
 	

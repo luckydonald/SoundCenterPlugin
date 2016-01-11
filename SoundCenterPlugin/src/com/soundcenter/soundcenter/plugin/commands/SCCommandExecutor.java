@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.soundcenter.soundcenter.plugin.SoundCenter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -30,7 +31,6 @@ import com.soundcenter.soundcenter.lib.data.Station;
 import com.soundcenter.soundcenter.lib.data.WGRegion;
 import com.soundcenter.soundcenter.lib.tcp.TcpOpcodes;
 import com.soundcenter.soundcenter.plugin.PlaybackManager;
-import com.soundcenter.soundcenter.plugin.SoundCenter;
 import com.soundcenter.soundcenter.plugin.data.ServerUser;
 import com.soundcenter.soundcenter.plugin.messages.Messages;
 import com.soundcenter.soundcenter.plugin.network.tcp.ConnectionManager;
@@ -414,7 +414,7 @@ public class SCCommandExecutor implements CommandExecutor{
 				}
 				
 				int maxAreas = SoundCenter.config.maxAreas();
-				if (maxAreas > 0 && SoundCenter.database.getStationCount(GlobalConstants.TYPE_AREA, player.getName()) >= maxAreas 
+				if (maxAreas > 0 && SoundCenter.database.getStationCount(GlobalConstants.TYPE_AREA, player.getName()) >= maxAreas
 						&& !player.hasPermission("sc.nolimits")) {
 					player.sendMessage(Messages.ERR_MAX_AREAS + maxAreas + ChatColor.RED + "areas.");
 					return true;
@@ -441,7 +441,7 @@ public class SCCommandExecutor implements CommandExecutor{
 				
 				SoundCenter.database.addStation(GlobalConstants.TYPE_AREA, newArea);
 				player.sendMessage(Messages.INFO_AREA_CREATED + newArea.getId());
-				SoundCenter.tcpServer.send(TcpOpcodes.CL_DATA_STATION, newArea, null, null);				
+				SoundCenter.tcpServer.send(TcpOpcodes.CL_DATA_STATION, newArea, null, null);
 				
 				return true;
 				
@@ -454,7 +454,7 @@ public class SCCommandExecutor implements CommandExecutor{
 				}
 				
 				int maxBoxes = SoundCenter.config.maxBoxes();
-				if (maxBoxes > 0 && SoundCenter.database.getStationCount(GlobalConstants.TYPE_BOX, player.getName()) >= maxBoxes 
+				if (maxBoxes > 0 && SoundCenter.database.getStationCount(GlobalConstants.TYPE_BOX, player.getName()) >= maxBoxes
 						&& !player.hasPermission("sc.nolimits")) {
 					player.sendMessage(Messages.ERR_MAX_BOXES + maxBoxes + ChatColor.RED + "boxes.");
 					return true;
@@ -479,7 +479,7 @@ public class SCCommandExecutor implements CommandExecutor{
 					radius = maxRange;
 				}
 				
-				Box newBox = new Box(SoundCenter.database.getAvailableId(GlobalConstants.TYPE_BOX), player.getName(), 
+				Box newBox = new Box(SoundCenter.database.getAvailableId(GlobalConstants.TYPE_BOX), player.getName(),
 						new SCLocation(player.getLocation()), radius);
 				// check if box overlaps withexisting boxes or areas
 				if (IntersectionDetection.boxOverlaps(newBox) && !player.hasPermission("sc.set.overlap")) {
@@ -642,12 +642,12 @@ public class SCCommandExecutor implements CommandExecutor{
 				if (!user.isSpeaking() && !user.isSpeakingGlobally()) {
 					user.setSpeakingGlobally(true);
 					if (UdpServer.getTotalDataRate() + (GlobalConstants.VOICE_DATA_RATE
-							*SoundCenter.userList.acceptedUsers.size()*0.8) 
-							<= SoundCenter.config.maxBandwidth()*1024) { //assuming 80% of accepted users are listening to 
+							* SoundCenter.userList.acceptedUsers.size()*0.8)
+							<= SoundCenter.config.maxBandwidth()*1024) { //assuming 80% of accepted users are listening to
 																				//global voice chat 
 																				//TODO replace with exact user count
 						SoundCenter.tcpServer.send(TcpOpcodes.CL_CMD_START_RECORDING, null, null, user);
-						UdpServer.totalVoiceDataRate += GlobalConstants.VOICE_DATA_RATE*SoundCenter.userList.acceptedUsers.size()*0.8;
+						UdpServer.totalVoiceDataRate += GlobalConstants.VOICE_DATA_RATE* SoundCenter.userList.acceptedUsers.size()*0.8;
 						player.sendMessage(Messages.INFO_SPEAKING_GLOBALLY);
 					} else {
 						player.sendMessage(Messages.ERR_SERVER_LOAD);
@@ -655,7 +655,7 @@ public class SCCommandExecutor implements CommandExecutor{
 					}
 				} else {
 					if (user.isSpeakingGlobally()) {
-						UdpServer.totalVoiceDataRate -= GlobalConstants.VOICE_DATA_RATE*SoundCenter.userList.acceptedUsers.size()*0.8;
+						UdpServer.totalVoiceDataRate -= GlobalConstants.VOICE_DATA_RATE* SoundCenter.userList.acceptedUsers.size()*0.8;
 					} else {
 						UdpServer.totalVoiceDataRate -= GlobalConstants.VOICE_DATA_RATE*user.listeners.size();
 					}
@@ -682,7 +682,7 @@ public class SCCommandExecutor implements CommandExecutor{
 					}
 				} else {
 					if (user.isSpeakingGlobally()) {
-						UdpServer.totalVoiceDataRate -= GlobalConstants.VOICE_DATA_RATE*SoundCenter.userList.acceptedUsers.size()*0.8;
+						UdpServer.totalVoiceDataRate -= GlobalConstants.VOICE_DATA_RATE* SoundCenter.userList.acceptedUsers.size()*0.8;
 					} else {
 						UdpServer.totalVoiceDataRate -= GlobalConstants.VOICE_DATA_RATE*user.listeners.size();
 					}

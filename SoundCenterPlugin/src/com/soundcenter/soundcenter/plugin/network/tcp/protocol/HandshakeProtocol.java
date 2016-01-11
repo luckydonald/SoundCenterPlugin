@@ -3,13 +3,13 @@ package com.soundcenter.soundcenter.plugin.network.tcp.protocol;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.soundcenter.soundcenter.plugin.SoundCenter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.soundcenter.soundcenter.lib.data.GlobalConstants;
 import com.soundcenter.soundcenter.lib.tcp.TcpOpcodes;
 import com.soundcenter.soundcenter.lib.tcp.TcpPacket;
-import com.soundcenter.soundcenter.plugin.SoundCenter;
 import com.soundcenter.soundcenter.plugin.data.ServerUser;
 import com.soundcenter.soundcenter.plugin.network.tcp.ConnectionManager;
 import com.soundcenter.soundcenter.plugin.network.udp.UdpServer;
@@ -51,21 +51,21 @@ public class HandshakeProtocol {
 					return true;
 					
 				} else {		/* wrong client version */
-					SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_VERSION, SoundCenter.MIN_CL_VERSION, SoundCenter.MAX_CL_VERSION, user);						
+					SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_VERSION, SoundCenter.MIN_CL_VERSION, SoundCenter.MAX_CL_VERSION, user);
 					user.setQuitReason("Wrong client version.");
 					return false;
 				}	
 			
 		} else if (!user.isVersionOK()) {		/* protocol error */
 			user.setQuitReason("Client not following the protocol.");
-			SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_PROTOCOL, null, null, user);				
+			SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_PROTOCOL, null, null, user);
 			return false;
 			
 		} else if (cmd == TcpOpcodes.SV_CON_INFO_NAME) {		/* user name info */
 				final String name = (String) receivedPacket.getKey();
 				if (name.length() <= 16) {
 					if (SoundCenter.userList.getAcceptedUserByName(name) != null ) {		/* user with that name already connected */
-						SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_ALREADY_CONNECTED, null, null, user);						
+						SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_ALREADY_CONNECTED, null, null, user);
 						user.setQuitReason("User with name " + name + " is already connected.");
 						return false;
 					}						
@@ -76,7 +76,7 @@ public class HandshakeProtocol {
 					user.setNameOK(true);
 					user.setAccepted(true);
 					SoundCenter.userList.addAcceptedUser(user);
-					SoundCenter.logger.d("User " + user.getIp() + " is connected to SoundCenter with id " 
+					SoundCenter.logger.d("User " + user.getIp() + " is connected to SoundCenter with id "
 					+ user.getId() + ".", null);
 					
 					final ServerUser joinedUser = user;
@@ -98,7 +98,7 @@ public class HandshakeProtocol {
 						    @Override
 						    public void run() {
 						    	if (!joinedUser.isInitialized()) {
-									SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_INIT_TIMEOUT, null, null, joinedUser);						
+									SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_INIT_TIMEOUT, null, null, joinedUser);
 									joinedUser.setQuitReason("Initialization timeout.");
 						    		joinedUser.disconnect();
 						    	}
@@ -112,18 +112,18 @@ public class HandshakeProtocol {
 					}
 					
 				} else {		/* invalid name */
-					SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_NAME, null, null, user);						
+					SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_NAME, null, null, user);
 					user.setQuitReason("Invalid name.");
 					return false;
 				}
 				
 		} else if (!user.isNameOK()) {		/* protocol error */
 			user.setQuitReason("Client not following the protocol.");
-			SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_PROTOCOL, null, null, user);				
+			SoundCenter.tcpServer.send(TcpOpcodes.CL_CON_DENY_PROTOCOL, null, null, user);
 			return false;
 			
 		} else {		/* unknown error */
-			SoundCenter.tcpServer.send(TcpOpcodes.CL_ERR_UNKNOWN, null, null, user);				
+			SoundCenter.tcpServer.send(TcpOpcodes.CL_ERR_UNKNOWN, null, null, user);
 			return false;
 		}
 	}

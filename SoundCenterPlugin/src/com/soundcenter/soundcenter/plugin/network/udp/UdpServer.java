@@ -105,7 +105,7 @@ public class UdpServer implements Runnable {
 	}
 	
 	public static long getTotalDataRate() {
-		return totalVoiceDataRate + (SoundCenter.userList.getInitializedUserCount() 
+		return totalVoiceDataRate + (SoundCenter.userList.getInitializedUserCount()
 				* GlobalConstants.LOCATION_DATA_RATE);
 	}
 	

@@ -6,6 +6,8 @@ import java.io.InvalidClassException;
 import java.util.Map.Entry;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.soundcenter.soundcenter.plugin.messages.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
@@ -40,7 +42,10 @@ public class SoundCenter extends JavaPlugin {
 	public static UdpServer udpServer = null;
 	public static SCLogger logger = null;
 
-	public static File dataFile = new File("plugins" + File.separator + "SoundCenter" + File.separator + "data.scdb");
+	public static Messages messages = null;
+
+	public static File dataFile = null;
+	public static final String LANGUAGE_FILE = "language.yml";
 
 	private MainLoop mainLoop = new MainLoop();
 	
@@ -51,9 +56,9 @@ public class SoundCenter extends JavaPlugin {
 		Thread.currentThread().setName("SoundCenter Plugin");
 
 		config = new Configuration(this);
+		messages = Messages.getInstance(this);
 		logger = new SCLogger(this.getLogger(), config.debug());
 		userList = new UserList();
-
 		// register commands
 		getCommand("sc").setExecutor(new SCCommandExecutor(this));
 
@@ -61,6 +66,7 @@ public class SoundCenter extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new SCPlayerListener(), this);
 
 		// load data
+		dataFile = new File(this.getDataFolder().getPath() + File.separator + "SoundCenter" + File.separator + "data.scdb");
 		if (dataFile.exists()) {
 			try {
 				database = (Database) FileOperation.loadObject(dataFile);
@@ -127,10 +133,14 @@ public class SoundCenter extends JavaPlugin {
 		mainLoop.shutdown();
 
 		try {
-			FileOperation.saveObject(dataFile, database);
-			SoundCenter.logger.i("Database saved: " + database.areas.size() + " areas, " + database.boxes.size()
-					+ " boxes, " + database.biomes.size() + " biome settings and " + database.worlds.size()
-					+ " world settings + " + database.wgRegions.size() + " WorldGuard regions.", null);
+			if (dataFile != null) {
+				FileOperation.saveObject(dataFile, database);
+				SoundCenter.logger.i("Database saved: " + database.areas.size() + " areas, " + database.boxes.size()
+						+ " boxes, " + database.biomes.size() + " biome settings and " + database.worlds.size()
+						+ " world settings + " + database.wgRegions.size() + " WorldGuard regions.", null);
+			} else {
+				SoundCenter.logger.i("Database not saved, file not existent.", null);
+			}
 		} catch (IOException e) {
 			SoundCenter.logger.w("Error while saving data.", e);
 		}
@@ -141,7 +151,6 @@ public class SoundCenter extends JavaPlugin {
 			} catch (InterruptedException e) {
 			}
 		}
-
 		logger.i("SoundCenter disabled!", null);
 	}
 	
